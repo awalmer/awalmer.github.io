@@ -33,7 +33,9 @@
     <button id="sonify3">Play chart, now simultaneous!</button>
     <div id="container3"></div>
 
-    <!-- js code -->
+
+    <!-- js code begins here-->
+    <!-- SCRIPT 1 / CHART 1 -->
     <script>
         // Initialize the chart & add data series:
         const chart = Highcharts.chart('container', {
@@ -50,6 +52,7 @@
         document.getElementById('sonify').onclick = () => chart.toggleSonify();
     </script>
 
+    <!-- SCRIPT 2 / CHART 2 -->
     <script>
         const chart2 = Highcharts.chart('container2', {
             sonification: {
@@ -75,6 +78,101 @@
         // Also new button defined "sonify2"
         document.getElementById('sonify2').onclick = () => chart2.toggleSonify();
     </script>
+
+    <!-- SCRIPT 3 / CHART 3 -->
+    <script>
+        const chart3 = Highcharts.chart('container3', {
+            title: {
+                text: 'Series sonified simultaneously',
+                align: 'left',
+                margin: 25
+            },
+
+            subtitle: {
+                text: 'Earcon when finished',
+                align: 'left'
+            },
+
+            tooltip: {
+                shared: true, // meaning one tooltip for both data series together
+                valueDecimals: 3
+            },
+
+            sonification: { // so is this the global sonification definition, and then data series definition below?
+                order: 'simultaneous', // plays simultaneously rather than one after the other
+                duration: 4000, // 4 seconds long
+                events: { // this is the chord at the end... 
+                    onEnd: function (e) {
+                        const s = e.chart.sonification;
+                        s.playNote('vibraphone', { note: 'G4' });
+                        s.playNote('vibraphone', { note: 'C4', pan: -1 });
+                        s.playNote('vibraphone', { note: 'E4', pan: 0 }, 200);
+                        s.playNote('vibraphone', { note: 'C5', pan: 1 }, 400);
+                    }
+                }
+            },
+
+            plotOptions: {
+                series: {
+                    marker: {
+                        enabled: false // no dots for data points
+                    }
+                }
+            },
+
+            xAxis: {
+                crosshair: { // the vertical line moving along while sonification plays
+                    enabled: true,
+                    width: 3,
+                    color: '#9088b0'
+                }
+            },
+
+            series: [{ // defining data series: [{ sonification + data 1}, {sonification + data 2},...]
+                sonification: {
+                    tracks: [{ // concept of "tracks" = each is a layer of sound played by single instrument/voice
+                        instrument: 'flute',
+                        mapping: {
+                            pan: -1 // Pan this series left
+                        }
+                    }] // you could add multiple tracks for one data series if you wanted...
+                },
+                    // Sonification options here!! https://api.highcharts.com/highcharts/series.line.sonification.tracks
+                        // embedded exmaples extremely useful.
+                // Generate some data for series 1
+                data: (function () {
+                    const data = [];
+                    for (let i = 0; i < 100; ++i) {
+                        data.push(Math.sin(i / 30) * 5);
+                    }
+                    return data;
+                }())
+            }, { // second item in data series definition
+                sonification: {
+                    tracks: [{
+                        instrument: 'piano',
+                        mapping: {
+                            pan: 1 // Pan this series right
+                        }
+                    }]
+                },
+                // Generate some data for series 2
+                data: (function () {
+                    const data = [];
+                    for (let i = 0; i < 100; ++i) {
+                        data.push(Math.sin((i + 30) / 20) * 6);
+                    }
+                    return data;
+                }())
+            }]
+        });
+
+        // Click button to sonify or stop
+        document.getElementById('sonify3').onclick = function () {
+            chart3.toggleSonify();
+        };
+    </script>
+    
 
   </body>
 
