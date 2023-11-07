@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <title>Highcharts: Audiochart Test 1</title>
+
+    <!-- for styling: insert css into head of html page -->
+    <style>
+
+    </style>
+
+  </head>
+
+  <body>
+    <!-- Within body section, load highcharts modules needed for audio chart etc. -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/sonification.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <button id="sonify">Play chart</button>
+    <div id="container"></div>
+
+    <!-- Layout of page defined up here, before scripts! -->
+    <br>
+    <br>
+
+    <button id="sonify2">Play chart</button>
+    <div id="container2"></div>
+
+    <p> <br style="line-height:40px"> </p>
+
+    <button id="sonify3">Play chart, now simultaneous!</button>
+    <div id="container3"></div>
+
+    <!-- js code -->
+    <script>
+        // Initialize the chart & add data series:
+        const chart = Highcharts.chart('container', {
+            title: {
+                text: 'Audio chart'
+            },
+            series: [{
+                data: [4, 5, 6, 5, 7, 9, 11, 13]
+            }, {
+                data: [1, 3, 4, 2]
+            }]
+        });
+        // Handling button click to play chart:
+        document.getElementById('sonify').onclick = () => chart.toggleSonify();
+    </script>
+
+    <script>
+        const chart2 = Highcharts.chart('container2', {
+            sonification: {
+                duration: 3000 // duration is in milliseconds. default = 6000 (6 seconds)
+                // this is the duration of the ENTIRE chart (series back to back)
+            },
+            title: {
+                text: 'Chart sonified in sequence',
+                align: 'left',
+                margin: 25 // is this in pixels? margin aroud title element, to next visible elemnt
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                data: [4, 5, 6, 5, 7, 9, 11, 13]
+            }, {
+                data: [1, 3, 4, 2]
+            }]
+        });
+        // Handling button click to play chart:
+        // Don't forget to call the new chart id ("chart2" as defined in body section)
+        // Also new button defined "sonify2"
+        document.getElementById('sonify2').onclick = () => chart2.toggleSonify();
+    </script>
+
+  </body>
+
+</html>
