@@ -18,10 +18,10 @@
     <script src="https://code.highcharts.com/modules/sonification.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
+    <!-- Layout of page defined up here, before scripts! -->
     <button id="sonify">Play chart</button>
     <div id="container"></div>
 
-    <!-- Layout of page defined up here, before scripts! -->
     <br>
     <br>
 
@@ -32,6 +32,12 @@
 
     <button id="sonify3">Play chart, now simultaneous!</button>
     <div id="container3"></div>
+
+    <p> <br style="line-height:40px"> </p>
+
+    <button id="conditional_chart_button">Play chart, conditional sonification</button>
+    <div id="conditional_audiochart"></div>
+    <p class="highcharts-description">An example of mapping different instruments to different value zones in a chart.</p>
 
 
     <!-- js code begins here-->
@@ -99,6 +105,7 @@
             },
 
             sonification: { // so is this the global sonification definition, and then data series definition below?
+                // applies to entire audio chart
                 order: 'simultaneous', // plays simultaneously rather than one after the other
                 duration: 4000, // 4 seconds long
                 events: { // this is the chord at the end... 
@@ -173,6 +180,82 @@
         };
     </script>
     
+    <!-- SCRIPT 4 / CHART 4 -->
+    <!-- Conditional Mapping of Data -->
+    <script>
+        const chart4 = Highcharts.chart('conditional_audiochart', {
+            title: {
+                text: 'Mapping Zones Conditionally',
+                align: 'left',
+                margin: 25
+            },
+            legend: {
+                enabled: false
+            },
+            yAxis: {
+                plotLines: [{ // two horizontal lines running across chart
+                    value: 6, // one horizontal line at y=6
+                    color: '#565',
+                    width: 3,
+                    zIndex: 2 // where it lives in the depth of the chart? e.g. behind the data lines?
+                }, {
+                    value: 10, // second horizontal line at y=10
+                    color: '#565',
+                    width: 3,
+                    zIndex: 2
+                }]
+            },
+            series: [{
+                sonification: {
+                    tracks: [{
+                        // Use vibraphone instrument when y = 5 or less
+                        instrument: 'vibraphone',
+                        activeWhen: { // this is the conditionality definition
+                            // https://api.highcharts.com/highcharts/sonification.defaultInstrumentOptions.activeWhen
+                            prop: 'y', // what var the conditionality is based on 
+                            max: 6 // track only active when 'prop' is below or at this value
+                        }
+                    }, {
+                        // Use piano above that, until we get to 10
+                        instrument: 'piano',
+                        activeWhen: {
+                            prop: 'y',
+                            min: 6.1, // between 6.1 and 10, inclusive
+                            max: 10
+                        }
+                    }, {
+                        // Then a sax
+                        instrument: 'saxophone',
+                        activeWhen: {
+                            prop: 'y',
+                            min: 10.1 // anything above or at 10.1 is a saxophone track
+                        }
+                    }]
+                },
+                // Get some visual zones as well
+                zones: [{ // https://api.highcharts.com/highcharts/series.line.zones
+                    color: '#3C3CC3',
+                    value: 6.1, // so are these just the maximum values? 
+                    // "The value up to where the zone extends, if undefined the zones stretches to the last value in the series."
+                    dashStyle: 'LongDashDot' // can change line style: https://api.highcharts.com/class-reference/Highcharts#.DashStyleValue
+                }, {
+                    color: '#34A866',
+                    value: 10.1
+                }, {
+                    color: '#DD1903', // don't forget the comma
+                    dashStyle: 'ShortDashDotDot'
+                }],
+                data: [4, 5, 6, 5, 7, 8, 7, 9, 11, 13, 14, 11, 8,
+                    7, 5, 2, 2, 1, 6, 8, 9, 11]
+            }] // end of series definition
+    }); // end of chart definition
+
+    document.getElementById('conditional_chart_button').onclick = function () { // action with button
+        chart4.toggleSonify();
+    };
+    </script>
+
+
 
   </body>
 
