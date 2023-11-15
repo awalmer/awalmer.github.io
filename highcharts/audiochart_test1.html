@@ -39,6 +39,11 @@
     <div id="conditional_audiochart"></div>
     <p class="highcharts-description">An example of mapping different instruments to different value zones in a chart.</p>
 
+    <p> <br style="line-height:40px"> </p>
+
+    <button id="sonify5">Play basic parameter mapping</button>
+    <div id="container5"></div>
+
 
     <!-- js code begins here-->
     <!-- SCRIPT 1 / CHART 1 -->
@@ -253,6 +258,100 @@
     document.getElementById('conditional_chart_button').onclick = function () { // action with button
         chart4.toggleSonify();
     };
+    </script> 
+
+    <!-- more on notifications / conditionality / earcons: https://www.highcharts.com/docs/sonification/notifications -->
+
+    <!-- Practicing Mapping to Data -->
+    <!-- SCRIPT 5 / CHART 5 -->
+
+    <script>
+        const chart5 = Highcharts.chart('container5', {
+            title: {
+                text: 'Practicing Mapping',
+                align: 'center'
+            },
+            subtitle: {
+                text: 'Pitch and Note Length to Y <br> Timbre by Series <br> Fixed Volume'
+            },
+            legend: {
+                enabled: true
+            },
+            accessibility: {
+                landmarkVerbosity: 'one',
+                series: {
+                    describeSingleSeries: true
+                }
+            },
+            sonification: {
+                updateInterval: 0, // Allow chart updates without delay
+                duration: 10000, // 10 seconds
+                defaultInstrumentOptions: {
+                    mapping: {
+                        pan: 0,
+                        volume: 0.4,
+                        noteDuration: 'y',
+                        pitch: {
+                            mapTo: 'y',
+                            min: 'c3',
+                            max: 'g6'
+                        }
+                    }
+                }
+            },
+            plotOptions: {
+                series: {
+                    marker: {
+                        enabled: false // no dots for data points
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '{series.name}<br>',
+                pointFormat: '<b>Value: {point.y}</b>',
+                padding: 10
+            },
+            xAxis: {
+                crosshair: {
+                    enabled: true,
+                    width: 50,
+                    color: 'rgba(90, 140, 210, 0.1)',
+                    // For CSS transitions
+                    className: 'hc-crosshair'
+                }
+            },
+            series: [{
+                name: 'First This', // SERIES 1
+                sonification: {
+                    tracks: [{
+                        instrument: 'vibraphone',
+                        mapping: {
+                            pan: 1 // Pan this series right
+                        }
+                    }]
+                },
+                data: [1, 2, 2, 4, 5, 7, 9, 11, 13, 6, 7, 1],
+                color: '#3070d0'
+                },
+                {
+                name: 'Then This', // SERIES 2
+                sonification: {
+                    tracks: [{
+                        instrument: 'saxophone',
+                        mapping: {
+                            pan: 1 // Pan this series right
+                        }
+                    }]
+                },
+                data: [1, 6, 7, 10, 2, 5, 4, 2, 1, 6, 7, 2],
+                color: '#e89313'
+                }
+            ]
+        });
+
+        document.getElementById('sonify5').onclick = function () { // action with button
+        chart5.toggleSonify();
+        };
     </script>
 
 
