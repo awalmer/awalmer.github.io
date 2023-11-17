@@ -17,11 +17,14 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/sonification.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/map.js"></script> <!-- required for chart 6 -->
 
+
+    <!-- Layout of page defined up here, before scripts! -->
     <button id="sonify">Play chart</button>
     <div id="container"></div>
 
-    <!-- Layout of page defined up here, before scripts! -->
     <br>
     <br>
 
@@ -32,6 +35,27 @@
 
     <button id="sonify3">Play chart, now simultaneous!</button>
     <div id="container3"></div>
+
+    <p> <br style="line-height:40px"> </p>
+
+    <button id="conditional_chart_button">Play chart, conditional sonification</button>
+    <div id="conditional_audiochart"></div>
+    <p class="highcharts-description">An example of mapping different instruments to different value zones in a chart.</p>
+
+    <p> <br style="line-height:40px"> </p>
+
+    <button id="sonify5">Play basic parameter mapping</button>
+    <div id="container5"></div>
+
+    <p> <br style="line-height:40px"> </p>
+
+    <div id="container6"></div>
+
+    <p> <br style="line-height:100px"> </p>
+
+    <div id="container7"></div>
+
+    <p> <br style="line-height:100px"> </p>
 
 
     <!-- js code begins here-->
@@ -99,6 +123,7 @@
             },
 
             sonification: { // so is this the global sonification definition, and then data series definition below?
+                // applies to entire audio chart
                 order: 'simultaneous', // plays simultaneously rather than one after the other
                 duration: 4000, // 4 seconds long
                 events: { // this is the chord at the end... 
@@ -173,6 +198,477 @@
         };
     </script>
     
+    <!-- SCRIPT 4 / CHART 4 -->
+    <!-- Conditional Mapping of Data -->
+    <script>
+        const chart4 = Highcharts.chart('conditional_audiochart', {
+            title: {
+                text: 'Mapping Zones Conditionally',
+                align: 'left',
+                margin: 25
+            },
+            legend: {
+                enabled: false
+            },
+            yAxis: {
+                plotLines: [{ // two horizontal lines running across chart
+                    value: 6, // one horizontal line at y=6
+                    color: '#565',
+                    width: 3,
+                    zIndex: 2 // where it lives in the depth of the chart? e.g. behind the data lines?
+                }, {
+                    value: 10, // second horizontal line at y=10
+                    color: '#565',
+                    width: 3,
+                    zIndex: 2
+                }]
+            },
+            series: [{
+                sonification: {
+                    tracks: [{
+                        // Use vibraphone instrument when y = 5 or less
+                        instrument: 'vibraphone',
+                        activeWhen: { // this is the conditionality definition
+                            // https://api.highcharts.com/highcharts/sonification.defaultInstrumentOptions.activeWhen
+                            prop: 'y', // what var the conditionality is based on 
+                            max: 6 // track only active when 'prop' is below or at this value
+                        }
+                    }, {
+                        // Use piano above that, until we get to 10
+                        instrument: 'piano',
+                        activeWhen: {
+                            prop: 'y',
+                            min: 6.1, // between 6.1 and 10, inclusive
+                            max: 10
+                        }
+                    }, {
+                        // Then a sax
+                        instrument: 'saxophone',
+                        activeWhen: {
+                            prop: 'y',
+                            min: 10.1 // anything above or at 10.1 is a saxophone track
+                        }
+                    }]
+                },
+                // Get some visual zones as well
+                zones: [{ // https://api.highcharts.com/highcharts/series.line.zones
+                    color: '#3C3CC3',
+                    value: 6.1, // so are these just the maximum values? 
+                    // "The value up to where the zone extends, if undefined the zones stretches to the last value in the series."
+                    dashStyle: 'LongDashDot' // can change line style: https://api.highcharts.com/class-reference/Highcharts#.DashStyleValue
+                }, {
+                    color: '#34A866',
+                    value: 10.1
+                }, {
+                    color: '#DD1903', // don't forget the comma
+                    dashStyle: 'ShortDashDotDot'
+                }],
+                data: [4, 5, 6, 5, 7, 8, 7, 9, 11, 13, 14, 11, 8,
+                    7, 5, 2, 2, 1, 6, 8, 9, 11]
+            }] // end of series definition
+    }); // end of chart definition
+
+    document.getElementById('conditional_chart_button').onclick = function () { // action with button
+        chart4.toggleSonify();
+    };
+    </script> 
+
+    <!-- more on notifications / conditionality / earcons: https://www.highcharts.com/docs/sonification/notifications -->
+
+    <!-- Practicing Mapping to Data -->
+    <!-- SCRIPT 5 / CHART 5 -->
+
+    <script>
+        const chart5 = Highcharts.chart('container5', {
+            title: {
+                text: 'Practicing Mapping',
+                align: 'center'
+            },
+            subtitle: {
+                text: 'Pitch and Note Length to Y <br> Timbre by Series <br> Fixed Volume'
+            },
+            legend: {
+                enabled: true
+            },
+            accessibility: {
+                landmarkVerbosity: 'one',
+                series: {
+                    describeSingleSeries: true
+                }
+            },
+            sonification: {
+                updateInterval: 0, // Allow chart updates without delay
+                duration: 10000, // 10 seconds
+                defaultInstrumentOptions: { // DID A LOT OF THE SAME MAPPING PARAMETERS FOR BOTH SERIES (GLOBAL)
+                    mapping: {
+                        pan: 0,
+                        volume: 0.4,
+                        noteDuration: 'y',
+                        pitch: {
+                            mapTo: 'y',
+                            min: 'c3',
+                            max: 'g6'
+                        }
+                    }
+                }
+            },
+            plotOptions: {
+                series: {
+                    marker: {
+                        enabled: false // no dots for data points
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '{series.name}<br>',
+                pointFormat: '<b>Value: {point.y}</b>',
+                padding: 10
+            },
+            xAxis: {
+                crosshair: {
+                    enabled: true,
+                    width: 50,
+                    color: 'rgba(90, 140, 210, 0.1)',
+                    // For CSS transitions
+                    className: 'hc-crosshair'
+                }
+            },
+            series: [{
+                name: 'First This', // SERIES 1
+                sonification: {
+                    tracks: [{
+                        instrument: 'vibraphone'
+                    }]
+                },
+                data: [1, 2, 2, 4, 5, 7, 9, 11, 13, 6, 7, 1],
+                color: '#3070d0'
+                },
+                {
+                name: 'Then This', // SERIES 2
+                sonification: {
+                    tracks: [{
+                        instrument: 'saxophone'
+                    }]
+                },
+                data: [1, 6, 7, 10, 2, 5, 4, 2, 1, 6, 7, 2],
+                color: '#e89313'
+                }
+            ]
+        });
+
+        document.getElementById('sonify5').onclick = function () { // action with button
+        chart5.toggleSonify();
+        };
+    </script>
+
+    <!-- SCRIPT 6 / CHART 6 -->
+    <script>
+        (async () => {
+            let sonifyOnHover = false;
+
+            const topology = await fetch(
+                'https://code.highcharts.com/mapdata/countries/fr/fr-all.topo.json'
+            ).then(response => response.json());
+
+            // Instantiate the map
+            Highcharts.mapChart('container6', {
+                chart: {
+                    map: topology
+                },
+                title: {
+                    text: 'France population density (/km²)',
+                    align: 'left'
+                },
+                subtitle: {
+                    text: 'Click a map area to start sonifying as you interact with the map',
+                    align: 'left'
+                },
+                sonification: {
+                    // Play marker / tooltip can make it hard to click other points
+                    // while a point is playing, so we turn it off
+                    showTooltip: false
+                },
+                legend: {
+                    layout: 'vertical',
+                    backgroundColor: 'rgba(255,255,255,0.85)',
+                    floating: true,
+                    verticalAlign: 'bottom',
+                    align: 'left',
+                    symbolHeight: 450
+                },
+                colorAxis: {
+                    min: 1,
+                    max: 1000,
+                    type: 'logarithmic',
+                    stops: [
+                        [0, '#0B4C63'],
+                        [0.5, '#7350BB'],
+                        [0.7, '#3CD391'],
+                        [0.9, '#4AA0FF']
+                    ],
+                    marker: {
+                        color: '#343'
+                    }
+                },
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 580
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                floating: false,
+                                align: 'center',
+                                symbolHeight: 10
+                            }
+                        }
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: '/km²'
+                },
+                series: [{
+                    name: 'Population density',
+                    sonification: {
+                        tracks: [{
+                            // First play a note to indicate new map area
+                            instrument: 'vibraphone',
+                            mapping: {
+                                pitch: 'c7',
+                                volume: 0.3
+                            }
+                        }, {
+                            mapping: {
+                                // Array of notes to play. We just repeat the same note
+                                // and vary the gap between the notes to indicate
+                                // density. Note: Can use Array.from in modern browsers
+                                pitch: Array.apply(null, Array(25)).map(function () {
+                                    return 'g2';
+                                }),
+                                gapBetweenNotes: {
+                                    mapTo: '-value', // Smaller value = bigger gaps
+                                    min: 90,
+                                    max: 1000,
+                                    mapFunction: 'logarithmic'
+                                },
+                                pan: 0,
+                                noteDuration: 500,
+                                playDelay: 150 // Make space for initial notification
+                            }
+                        }, {
+                            // Speak the name after a while
+                            type: 'speech',
+                            language: 'fr-FR', // Speak in French, preferably
+                            mapping: {
+                                text: '{point.name}',
+                                volume: 0.4,
+                                rate: 1.5,
+                                playDelay: 1500
+                            }
+                        }]
+                    },
+                    accessibility: {
+                        point: {
+                            valueDescriptionFormat: '{xDescription}, {point.value} people per square kilometer.'
+                        }
+                    },
+                    events: {
+                        mouseOut: function () {
+                            // Cancel sonification when mousing out of point
+                            this.chart.sonification.cancel();
+                        }
+                    },
+                    point: {
+                        // Handle when to sonify and not
+                        events: {
+                            // We require a click before we start playing, so we don't
+                            // surprise users. Also some browsers will block audio
+                            // until there have been interactions.
+                            click: function () {
+                                if (!sonifyOnHover) {
+                                    this.sonify();
+                                } else {
+                                    this.series.chart.sonification.cancel();
+                                }
+                                sonifyOnHover = !sonifyOnHover;
+                            },
+                            mouseOver: function () {
+                                if (sonifyOnHover) {
+                                    this.sonify();
+                                }
+                            }
+                        }
+                    },
+                    cursor: 'pointer',
+                    borderColor: '#4A5A4A',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}'
+                    },
+                    data: [
+                        ['fr-hdf', 189],
+                        ['fr-nor', 111],
+                        ['fr-idf', 1021],
+                        ['fr-ges', 97],
+                        ['fr-bre', 123],
+                        ['fr-pdl', 119],
+                        ['fr-cvl', 66],
+                        ['fr-bfc', 59],
+                        ['fr-naq', 72],
+                        ['fr-ara', 115],
+                        ['fr-occ', 82],
+                        ['fr-pac', 162],
+                        ['fr-lre', 344],
+                        ['fr-may', 1],
+                        ['fr-gf', 3],
+                        ['fr-mq', 323],
+                        ['fr-gua', 236],
+                        ['fr-cor', 39]
+                    ]
+                }]
+            });
+        })();
+    </script>
+
+    <!-- SCRIPT 7 / CHART 7 -->
+    <!-- Audio Map SIMPLIFIED / TWEAKED -->
+    <script>
+        (async () => {
+            let sonifyOnHover = false;
+
+            const topology = await fetch(
+                'https://code.highcharts.com/mapdata/countries/fr/fr-all.topo.json'
+            ).then(response => response.json());
+
+            // Instantiate the map
+            Highcharts.mapChart('container7', {
+                chart: {
+                    map: topology
+                },
+                title: {
+                    text: 'Map Sonified',
+                    align: 'center'
+                },
+                subtitle: {
+                    text: 'Learning elements of sonified chart <br> Mapped pitch to population density <br> One click',
+                    align: 'center'
+                },
+                sonification: { // only global sonification aspect needed?
+                    showTooltip: false
+                },
+                legend: {
+                    layout: 'vertical',
+                    backgroundColor: 'rgba(255,255,255,0.85)',
+                    floating: true,
+                    verticalAlign: 'bottom',
+                    align: 'left',
+                    symbolHeight: 450
+                },
+                colorAxis: {
+                    min: 1,
+                    max: 1000,
+                    type: 'logarithmic',
+                    stops: [
+                        [0, '#0B4C63'],
+                        [0.5, '#7350BB'],
+                        [0.7, '#3CD391'],
+                        [0.9, '#4AA0FF']
+                    ],
+                    marker: {
+                        color: '#343'
+                    }
+                },
+                responsive: { // "Allows setting a set of rules to apply for different screen or chart sizes. Each rule specifies additional chart options."
+                    rules: [{
+                        condition: {
+                            maxWidth: 580 // pixels
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                floating: false,
+                                align: 'center',
+                                symbolHeight: 10
+                            }
+                        }
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: '/km²'
+                },
+                series: [{
+                    name: 'Population density',
+                    sonification: {
+                        tracks: [{ // SIMPLIFYING THE MAPPING
+                            instrument: 'vibraphone',
+                            mapping: {
+                                pan: 0,
+                                volume: 0.5,
+                                noteDuration: 4000,
+                                pitch: {
+                                    mapTo: 'value', // still not sure about calling the data values, when to use {} etc.
+                                    min: 'c2',
+                                    max: 'g7'
+                                }
+                            }
+                        }]
+                    },
+                accessibility: {
+                    point: {
+                        valueDescriptionFormat: '{xDescription}, {point.value} people per square kilometer.'
+                    }
+                },
+                // REMOVAL HERE canceling sonification when mouse out, not needed because no longer continual sonification
+                point: {
+                    // Handle when to sonify and not
+                    events: {
+                        // We require a click before we start playing, so we don't
+                        // surprise users. Also some browsers will block audio
+                        // until there have been interactions.
+                        click: function () {
+                            if (!sonifyOnHover) {
+                                this.sonify();
+                            } else {
+                                this.series.chart.sonification.cancel();
+                            }
+                            // sonifyOnHover = !sonifyOnHover; // somehow removing this made it so I didn't have to click to reset
+                        }
+                    // REMOVAL HERE: hover feature
+                    }
+                },
+                cursor: 'pointer',
+                borderColor: '#4A5A4A',
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}'
+                },
+                data: [
+                    ['fr-hdf', 189],
+                    ['fr-nor', 111],
+                    ['fr-idf', 1021],
+                    ['fr-ges', 97],
+                    ['fr-bre', 123],
+                    ['fr-pdl', 119],
+                    ['fr-cvl', 66],
+                    ['fr-bfc', 59],
+                    ['fr-naq', 72],
+                    ['fr-ara', 115],
+                    ['fr-occ', 82],
+                    ['fr-pac', 162],
+                    ['fr-lre', 344],
+                    ['fr-may', 1],
+                    ['fr-gf', 3],
+                    ['fr-mq', 323],
+                    ['fr-gua', 236],
+                    ['fr-cor', 39]
+                ]
+                }] // end of series definition
+            });
+        })();
+    </script>
+
+
 
   </body>
 
