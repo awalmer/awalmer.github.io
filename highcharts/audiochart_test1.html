@@ -18,7 +18,9 @@
     <script src="https://code.highcharts.com/modules/sonification.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/maps/highmaps.js"></script>
-    <script src="https://code.highcharts.com/maps/modules/map.js"></script> <!-- required for chart 6 -->
+    <script src="https://code.highcharts.com/maps/modules/map.js"></script> <!-- required for chart 6, 7 -->
+    <script src="https://code.highcharts.com/modules/data.js"></script> <!-- required for chart 8 -->
+    
 
 
     <!-- Layout of page defined up here, before scripts! -->
@@ -56,6 +58,21 @@
     <div id="container7"></div>
 
     <p> <br style="line-height:100px"> </p>
+
+    <button id="sonify_csv">Play chart</button>
+    <div id="container8"></div>
+    <p class="highcharts-description">Testing reading in a .csv file from a URL. But not working for local file! </p>
+    <p class="highcharts-description">Oh, what about reading from GitHub?</p>
+
+    <p> <br style="line-height:100px"> </p>
+
+    <button id="sonify_csv2">Play chart</button>
+    <div id="container9"></div>
+
+    <p> <br style="line-height:100px"> </p>
+
+    <button id="sonify_csv3">Play chart</button>
+    <div id="container10"></div>
 
 
     <!-- js code begins here-->
@@ -551,7 +568,7 @@
                     align: 'center'
                 },
                 subtitle: {
-                    text: 'Learning elements of sonified chart <br> Mapped pitch to population density <br> One click',
+                    text: 'Learning elements of sonified chart <br> Mapped pitch to population density <br> Mapped note duration to population density <br> One click',
                     align: 'center'
                 },
                 sonification: { // only global sonification aspect needed?
@@ -601,15 +618,19 @@
                     name: 'Population density',
                     sonification: {
                         tracks: [{ // SIMPLIFYING THE MAPPING
-                            instrument: 'vibraphone',
+                            instrument: 'saxophone',
                             mapping: {
                                 pan: 0,
-                                volume: 0.5,
-                                noteDuration: 4000,
+                                volume: 0.6,
+                                noteDuration: {
+                                    mapTo: 'value',
+                                    min: 1000,
+                                    max: 3000
+                                },
                                 pitch: {
                                     mapTo: 'value', // still not sure about calling the data values, when to use {} etc.
                                     min: 'c2',
-                                    max: 'g7'
+                                    max: 'c5'
                                 }
                             }
                         }]
@@ -641,6 +662,7 @@
                 borderColor: '#4A5A4A',
                 dataLabels: {
                     enabled: true,
+                    allowOverlap: true, // added this for label inclusion? although some do overlap 
                     format: '{point.name}'
                 },
                 data: [
@@ -668,6 +690,103 @@
         })();
     </script>
 
+
+    <!-- SCRIPT 8 / CHART 8 -->
+    <!-- Reading in a csv file -->
+    <script>
+        const chart8 = Highcharts.chart('container8', {
+            chart: {
+                type: 'spline'
+            },
+            title: {
+                text: 'Live Data (CSV)'
+            },
+
+            subtitle: {
+                text: 'Data input from a remote CSV file'
+            },
+
+            data: {
+                csvURL: 'https://demo-live-data.highcharts.com/time-data.csv',
+                enablePolling: true
+            }
+        });
+
+        document.getElementById('sonify_csv').onclick = function () {
+            chart8.toggleSonify();
+        };
+
+    </script>
+
+    <!-- SCRIPT 9 / CHART 9 -->
+    <!-- Reading in a csv file TAKE 2-->
+    <script>
+        const chart9 = Highcharts.chart('container9', {
+            chart: {
+                type: 'scatter'
+            },
+            title: {
+                text: 'Absolute Value'
+            },
+
+            subtitle: {
+                text: 'Data read from GitHub location'
+            },
+
+            data: { 
+                csvURL: 'https://raw.githubusercontent.com/awalmer/GitHub-Page-Site-HSS-Tutorials/main/example%20data/absolute_value.csv'
+            },
+
+            series: [{
+                name: 'neg x',
+                id: 'negative_x', // how to name versus identify data??
+                sonification: {
+                    instrument: 'vibraphone'
+                }
+            }, {
+                name: 'pos x',
+                id: 'positive_x',
+                sonification: {
+                    instrument: 'vibraphone'
+                }
+            }, {
+                name: 'zero',
+                sonification: {
+                    instrument: 'vibraphone'
+                }
+            }]
+            
+            
+        });
+
+        document.getElementById('sonify_csv2').onclick = function () {
+            chart9.toggleSonify();
+        };
+
+    </script>
+
+    <!-- SCRIPT 10 / CHART 10 -->
+    <script>
+        const chart10 = Highcharts.chart('container10', {
+            chart: {
+                type: 'scatter'
+            },
+            title: {
+                text: 'Wiki Test'
+            },
+            subtitle: {
+                text: 'Data read from GitHub'
+            },
+            data: {
+                csvURL: 'https://raw.githubusercontent.com/awalmer/Sonification/main/Wiki/hcwiki1.csv',
+            }     
+        });
+
+        document.getElementById('sonify_csv3').onclick = function () {
+            chart10.toggleSonify();
+        };
+
+    </script>
 
 
   </body>
