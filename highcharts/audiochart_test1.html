@@ -701,11 +701,9 @@
             title: {
                 text: 'Live Data (CSV)'
             },
-
             subtitle: {
                 text: 'Data input from a remote CSV file'
             },
-
             data: {
                 csvURL: 'https://demo-live-data.highcharts.com/time-data.csv',
                 enablePolling: true
@@ -736,23 +734,26 @@
             data: { 
                 csvURL: 'https://raw.githubusercontent.com/awalmer/GitHub-Page-Site-HSS-Tutorials/main/example%20data/absolute_value.csv'
             },
-
             series: [{
                 name: 'neg x',
                 id: 'negative_x', // how to name versus identify data??
                 sonification: {
-                    instrument: 'vibraphone'
+                    instrument: 'vibraphone',
+                    duration: 2000,
                 }
             }, {
                 name: 'pos x',
                 id: 'positive_x',
                 sonification: {
-                    instrument: 'vibraphone'
+                    instrument: 'saxophone',
+                    duration: 500, // not affecting anything!! 
+                    pitch: 'c6'
                 }
             }, {
                 name: 'zero',
                 sonification: {
-                    instrument: 'vibraphone'
+                    instrument: 'vibraphone',
+                    duration: 2000
                 }
             }]
             
@@ -769,7 +770,7 @@
     <script>
         const chart10 = Highcharts.chart('container10', {
             chart: {
-                type: 'scatter'
+                type: 'column'
             },
             title: {
                 text: 'Wiki Test'
@@ -777,9 +778,32 @@
             subtitle: {
                 text: 'Data read from GitHub'
             },
+            xAxis: {
+                title: {
+                    text: 'Start Time (seconds)'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Edit Size (bytes)'
+                }
+            },
+            sonification: {
+                instrument: 'vibraphone',
+                duration: 24000,
+                mapping: {
+                        volume: 0.4,
+                        noteDuration: 'x',
+                        pitch: {
+                            mapTo: 'y',
+                            min: 'c3',
+                            max: 'g6'
+                        }
+                    }
+            },
             data: {
-                csvURL: 'https://raw.githubusercontent.com/awalmer/Sonification/main/Wiki/hcwiki1.csv',
-            }     
+                csvURL: 'https://raw.githubusercontent.com/awalmer/Sonification/main/Wiki/hcwiki1.csv'
+            }    
         });
 
         document.getElementById('sonify_csv3').onclick = function () {

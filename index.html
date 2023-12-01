@@ -56,19 +56,23 @@ My GitHub Page URL: aurawalmer.github.io
   
 		  <div class="collapse navbar-collapse" id="navbarsExample09">
 			<ul class="navbar-nav ml-auto">
-			  <li class="nav-item  active"><a class="nav-link" href="index.html">Start</a></li>
+			 
+			<!-- 
+				<li class="nav-item  active"><a class="nav-link" href="index.html">All</a></li> 
 
-			  <li class="nav-item dropdown active">
-					<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data Projects</a>
-					<ul class="dropdown-menu" aria-labelledby="dropdown02">
-						<li><a class="dropdown-item" href="test-space.html">Test Space</a></li>
-						<li><a class="dropdown-item" href="portfolio-1.html">Portfolio Masonary</a></li>
-						<li><a class="dropdown-item" href="portfolio-2.html">Portfolio lightbox</a></li>
-						<li><a class="dropdown-item" href="portfolio-3.html">Portfolio 2 column</a></li>
-						<li><a class="dropdown-item" href="portfolio-single.html">Portfolio Details</a></li>
-					</ul>
-			  </li>
-			   <li class="nav-item"><a class="nav-link" href="https://www.aurawalmer.com">Back to www.aurawalmer.com</a></li>
+				<li class="nav-item dropdown active">
+						<a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data Project Portfolio</a>
+						<ul class="dropdown-menu" aria-labelledby="dropdown02">
+							<li><a class="dropdown-item" href="index.html">All</a></li>
+							<li><a class="dropdown-item" href="test-space.html">Test Space</a></li>
+							<li><a class="dropdown-item" href="portfolio-2.html">Portfolio lightbox</a></li>
+							<li><a class="dropdown-item" href="portfolio-3.html">Portfolio 2 column</a></li>
+							<li><a class="dropdown-item" href="portfolio-single.html">Portfolio Details</a></li>
+						</ul>
+				</li>
+			--> 
+				<li class="nav-item"><a class="nav-link" href="index.html">Data Project Portfolio</a></li>
+				<li class="nav-item"><a class="nav-link" href="https://www.aurawalmer.com">Return: [aurawalmer.com]</a></li>
 			</ul>
 		</div>
 	</div>
@@ -102,30 +106,30 @@ My GitHub Page URL: aurawalmer.github.io
 
 <!-- Banner End -->
 
-<!-- POrtfolio start -->
+<!-- Portfolio start -->
 <section class="portfolio ">
 	<div class="container">
 		<div class="row mb-5">
 	      	<div class="col-10">
 		        <div class="btn-group btn-group-toggle " data-toggle="buttons">
 		          <label class="btn active ">
-		            <input type="radio" name="shuffle-filter" value="all" checked="checked" />All Projects
+		            <input type="radio" name="shuffle-filter" value="all" checked="checked" />All
+		          </label>
+		          <label class="btn">
+		            <input type="radio" name="shuffle-filter" value="visualization" />Visualization
 		          </label>
 		          <label class="btn">
 		            <input type="radio" name="shuffle-filter" value="sonification" />Sonification
 		          </label>
 		          <label class="btn">
-		            <input type="radio" name="shuffle-filter" value="branding" />Visualization
-		          </label>
-		          <label class="btn">
-		            <input type="radio" name="shuffle-filter" value="illustration" />Sound + Viz
+		            <input type="radio" name="shuffle-filter" value="miscellaneous" />Miscellaneous
 		          </label>
 		        </div>
 	      	</div>
     	</div>	
 
 		<div class="row shuffle-wrapper portfolio-gallery">
-	      <div class="col-lg-4 col-6 mb-4 shuffle-item"  data-groups="[&quot;design&quot;,&quot;illustration&quot;]">
+	      <div class="col-lg-4 col-6 mb-4 shuffle-item"  data-groups="[&quot;visualization&quot;,&quot;sonification&quot;]">
 		      	<div class="position-relative inner-box">
 		          <div class="image position-relative ">
 	               <img src="images/portfolio_new/michelin_image_example.jpeg" alt="portfolio-image" class="img-fluid w-100 d-block">
@@ -157,7 +161,7 @@ My GitHub Page URL: aurawalmer.github.io
 		      </div>
 	      </div>
 
-	      <div class="col-lg-4 col-6 mb-4 shuffle-item" data-groups="[&quot;illustration&quot;]">
+	      <div class="col-lg-4 col-6 mb-4 shuffle-item" data-groups="[&quot;miscellaneous&quot;]">
 	        <div class="position-relative inner-box">
 	            <div class="image position-relative ">
 	               <img src="images/portfolio/3.jpg" alt="portfolio-image" class="img-fluid w-100 d-block">
@@ -173,7 +177,7 @@ My GitHub Page URL: aurawalmer.github.io
 	        </div>
 	      </div>
 
-	      <div class="col-lg-4 col-6 mb-4 shuffle-item" data-groups="[&quot;design&quot;,&quot;branding&quot;]">
+	      <div class="col-lg-4 col-6 mb-4 shuffle-item" data-groups="[&quot;design&quot;,&quot;miscellaneous&quot;]">
 	        <div class="position-relative inner-box">
 	            <div class="image position-relative ">
 	               <img src="images/portfolio/5.jpg" alt="portfolio-image" class="img-fluid w-100 d-block">
@@ -205,7 +209,7 @@ My GitHub Page URL: aurawalmer.github.io
 	        </div>
 	      </div>
 
-	      <div class="col-lg-4 col-6 mb-4 shuffle-item" data-groups="[&quot;design&quot;,&quot;photo&quot;]">
+	      <div class="col-lg-4 col-6 mb-4 shuffle-item" data-groups="[&quot;design&quot;,&quot;miscellaneous&quot;]">
 	        <div class="position-relative inner-box">
 	            <div class="image position-relative ">
 	               <img src="images/portfolio/7.jpg" alt="portfolio-image" class="img-fluid w-100 d-block">
@@ -221,6 +225,11 @@ My GitHub Page URL: aurawalmer.github.io
 	        </div>
 	      </div>
 	    </div>
+
+		<div class="mt-4">
+			<a href="#" class="btn btn-main btn-small">&uarr; Back to Top</a>
+		</div>
+
 	</div>
 </section>
 <!-- Portfolio End -->
