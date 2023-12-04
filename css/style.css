@@ -765,3 +765,8 @@ textarea.form-control {
 .test-width {
   width: 100%;
 }
+
+.btn-test {
+  background: #7eb9cf;
+  color: #000000;
+}
