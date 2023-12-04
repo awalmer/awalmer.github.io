@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+  <meta charset="utf-8">
+  <title>Aura Walmer Data Portfolio | WHOI Prototypes</title>
+
+  <!-- mobile responsive meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- description -->
+  <meta name="description" content="Aura Walmer Data Portfolio | Oceanographic sonification prototypes using Highcharts">
+  
+  <!-- ** Plugins Needed for the Project ** -->
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="../plugins/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="../plugins/themify/css/themify-icons.css">
+  <link rel="stylesheet" href="../plugins/counto/animate.css">
+  <link rel="stylesheet" href="../plugins/aos/aos.css">
+  <link rel="stylesheet" href="../plugins/owl-carousel/owl.carousel.min.css">
+  <link rel="stylesheet" href="../plugins/owl-carousel/owl.theme.default.min.css">
+  <link rel="stylesheet" href="../plugins/magnific-popup/magnific-popup.css">
+  <link rel="stylesheet" href="../plugins/animated-text/animated-text.css">
+
+  <!-- Main Stylesheet -->
+  <link href="../css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="test-bg"> <!-- by creating a css class and adding it, I could add bg image to whole body! -->
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg  main-nav" id="navbar">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="navbarsExample09">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Data Project Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://www.aurawalmer.com">Return: [aurawalmer.com]</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="portfolio">
+        <div class="container">
+            <img src="../images/test/whoi_header.png" alt="WHOI Image" class="test-width">
+        </div>
+        <br>
+        <div class="container">
+            <button id="sonify1">Play chart</button>
+            <div id="highcharts_container1"></div>
+        </div>
+    </section>
+
+    <!-- Load Highcharts Javascript -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/sonification.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/map.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+
+    <!-- Script 1 -->
+    <script>
+        // Initialize the chart & add data series:
+        const chart = Highcharts.chart('highcharts_container1', {
+            title: {
+                text: 'Audio chart'
+            },
+            series: [{
+                data: [4, 5, 6, 5, 7, 9, 11, 13]
+            }, {
+                data: [1, 3, 4, 2]
+            }]
+        });
+        // Handling button click to play chart:
+        document.getElementById('sonify1').onclick = () => chart.toggleSonify();
+    </script>
+    
+
+
+
+</body>
+
+<!-- jQuery -->
+<script src="plugins/jQuery/jquery.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="plugins/bootstrap/bootstrap.min.js"></script>
+<script src="plugins/aos/aos.js"></script>
+<script src="plugins/owl-carousel/owl.carousel.min.js"></script>
+<script src="plugins/shuffle/shuffle.min.js"></script>
+<script src="plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="plugins/animated-text/animated-text.js"></script>
+<script src="plugins/counto/apear.js"></script>
+<script src="plugins/counto/counTo.js"></script>
+
+ <!-- Google Map -->
+<script src="plugins/google-map/map.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script> 
+<!-- Main Script -->
+<script src="js/script.js"></script>
+
+</html>
+

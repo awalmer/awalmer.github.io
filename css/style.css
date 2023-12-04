@@ -756,3 +756,12 @@ textarea.form-control {
   color: #f44336;
 }
 /*# sourceMappingURL=style.css.map */
+
+/* Testing out defining a single attribute so that I can add it to body of a page!*/
+.test-bg {
+  background-image: url(../images/test/whoi_bg.jpg);
+}
+
+.test-width {
+  width: 100%;
+}
