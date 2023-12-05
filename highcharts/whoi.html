@@ -50,6 +50,17 @@
             <button class="btn btn-test btn-small" id="sonify1">Play chart</button>
             <div id="highcharts_container1"></div>
         </div>
+        <br>
+        <br>
+        <div class="container">
+            <button class="btn btn-test btn-small" id="sonify2">Play chart</button>
+            <div id="highcharts_container2"></div>
+        </div>
+        <br><br>
+        <div class="container">
+            <button class="btn btn-test btn-small" id="sonify3">Play chart</button>
+            <div id="highcharts_container3"></div>
+        </div>
     </section>
 
     <!-- Load Highcharts Javascript -->
@@ -64,17 +75,221 @@
     <script>
         // Initialize the chart & add data series:
         const chart = Highcharts.chart('highcharts_container1', {
+            //type: 'line',
             title: {
-                text: 'Audio chart'
+                text: 'Jason Data',
+                align: 'center'
+            },
+            subtitle: {
+                text: 'Conditional Mapping of Temperature',
+                align: 'center'
+            },
+            yAxis: {
+                title: {
+                    text: 'Temperature (F)'
+                },
+                plotLines: [{
+                    value: 300,
+                    color: '#CCCCCD',
+                    width: 2,
+                    zIndex: 2
+                }, {
+                    value: 500,
+                    color: '#CCCCCD',
+                    width: 2,
+                    zIndex: 2
+                }]
+            },
+            legend: {
+                enabled: false
+            },
+            xAxis: {
+                title: {
+                    text: 'Seconds Passed'
+                },
+                min: 3500,
+                max: 4600
+            },
+            sonification: {
+                duration: 24000
             },
             series: [{
-                data: [4, 5, 6, 5, 7, 9, 11, 13]
-            }, {
-                data: [1, 3, 4, 2]
-            }]
+                sonification: { // define conditional instrumentation
+                    updateInterval: 0,
+                    tracks: [{
+                        instrument: 'basic1',
+                        activeWhen: {
+                            prop: 'y',
+                            max: 300
+                        },
+                        mapping: {
+                            volume: 0.4,
+                            pitch: {
+                                min: 'c3',
+                                max: 'c4'
+                            }
+                        }
+                    }, {
+                        instrument: 'flute',
+                        activeWhen: {
+                            prop: 'y',
+                            min: 300.01,
+                            max: 500
+                        },
+                        mapping: {
+                            volume: 0.5,
+                            pitch: {
+                                min: 'c4',
+                                max: 'c5'
+                            }
+                        }
+                    }, {
+                        instrument: 'saxophone',
+                        activeWhen: {
+                            prop: 'y',
+                            min: 500.01
+                        },
+                        mapping: {
+                            volume: 0.5,
+                            pitch: {
+                                min: 'c5',
+                                max: 'c6'
+                            }
+                        }
+                    }] // end of 'tracks' definition
+                }, // end of 'sonification' definition
+                zones: [{ // visual zone definition
+                    color: '#024C75',
+                    value: 300.01
+                }, {
+                    color: '#29ADB2',
+                    value: 500.1
+                }, {
+                    color: '#C6DF99'
+                }],
+            }],
+            data: {
+                    csvURL: 'https://raw.githubusercontent.com/awalmer/Sonification/main/WHOI/jason_1390_highcharts.csv'
+            }
         });
         // Handling button click to play chart:
         document.getElementById('sonify1').onclick = () => chart.toggleSonify();
+    </script>
+
+
+    <!-- Script 2 -->
+    <script>
+        // Initialize the chart & add data series:
+        const chart2 = Highcharts.chart('highcharts_container2', {
+            //type: 'line',
+            title: {
+                text: 'Jason Data',
+                align: 'center'
+            },
+            subtitle: {
+                text: 'Conditional Mapping of Temperature',
+                align: 'center'
+            },
+            yAxis: {
+                title: {
+                    text: 'Temperature (F)'
+                }
+            },
+            xAxis: {
+                title: {
+                    text: 'Seconds Passed'
+                },
+                min: 3500,
+                max: 4600
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                line: {
+                    color: '#0567AD'
+                }
+            },
+            sonification: {
+                updateInterval: 0, // Allow chart updates without delay
+                duration: 10000, // 10 seconds
+            },
+            series: [{
+                sonification: {
+                    tracks: [{
+                        instrument: 'vibraphone',
+                        mapping: {
+                            volume: 0.5,
+                            pitch: {
+                                min: 'c3',
+                                max: 'c5'
+                            }
+                        }
+                    }]
+                }
+            }],
+            data: {
+                csvURL: 'https://raw.githubusercontent.com/awalmer/Sonification/main/WHOI/jason_1390_highcharts.csv'
+            }
+        });
+        // Handling button click to play chart:
+        document.getElementById('sonify2').onclick = () => chart2.toggleSonify();
+    </script>
+
+
+    <!-- Script 3 -->
+    <script>
+        // Initialize the chart & add data series:
+        const chart3 = Highcharts.chart('highcharts_container3', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'When Do Hurricanes Strike?',
+                align: 'center'
+            },
+            subtitle: {
+                text: 'NOAA Data from 2013 to 2023 (All U.S. Territories)'
+            },
+            sonification: {
+                updateInterval: 0, // Allow chart updates without delay
+                duration: 9000, // 10 seconds
+            },
+            series: [{
+                sonification: {
+                    tracks: [{
+                        instrument: 'vibraphone',
+                        mapping: {
+                            volume: 0.5,
+                            noteDuration: {
+                                mapTo: 'Freq', // not working
+                                min: 1000,
+                                max: 3000
+                            },
+                            pitch: {
+                                mapTo: 'y',
+                                min: 'c3',
+                                max: 'g5',
+                                scale: Highcharts.sonification.Scales.minor
+                            }
+                        }
+                    }, {
+                        type: 'speech',
+                        mapping: {
+                            text: '{series.name}', // not able to call data aspects properly still
+                            volume: 0.2,
+                            pitch: 'y',
+                            playDelay: -250
+                        }
+                    }]
+                }
+            }],
+            data: {
+                csvURL: 'https://raw.githubusercontent.com/awalmer/Climate-Data-Repository/main/Hurricanes/month_summary_2013_2023.csv'
+            }
+        });
+        // Handling button click to play chart:
+        document.getElementById('sonify3').onclick = () => chart3.toggleSonify();
     </script>
     
 
@@ -99,6 +314,9 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script> 
 <!-- Main Script -->
 <script src="js/script.js"></script>
+
+<!-- Color Palette: #023951, #024C75, #0567AD, #29ADB2, #C6DF99, #CCCCCD, #414042 -->
+
 
 </html>
 
