@@ -488,7 +488,7 @@
                     type: 'mappoint',
                     color: '#0567AD',
                     data: [
-                        [-85, 28, 'Origin'],
+                        [-85, 28, 'Origin'], // why is it formatted lon, lat? [28, -85] actually correct
                         [-85.088, 28.044],
                         [-85.176, 28.088],
                         [-85.265, 28.132],
@@ -1023,7 +1023,7 @@
                     align: 'left'
                 },
                 sonification: {
-                    duration: 16000,
+                    duration: 8000,
                     updateInterval: 0
                 },
                 mapView: {
@@ -1094,7 +1094,7 @@
                         filter: {
                             property: 'labelrank',
                             operator: '>',
-                            value: 25
+                            value: 40 // increased this number because 'Bahamas' label was blocking 'August 23' label
                         }
                     },
                     borderColor: '#5E703E', // dark green border
@@ -1105,14 +1105,18 @@
                 }, {
                     name: 'Coordinate Path',
                     type: 'mappoint',
-                    color: '#0567AD'
+                    color: '#0567AD',
+                    data: [
+                        [-75.10,23.10, 'August 23'],[-75.40,23.25],[-75.70,23.40],[-75.97,23.57],[-76.20,23.80],[-76.36,24.11],[-76.50,24.50],[-76.66,24.96],[-76.90,25.40],[-77.28,25.76],[-77.70,26.00],[-78.07,26.09],[-78.40,26.10],[-78.71,26.16],[-79.00,26.20],[-79.29,26.23],[-79.60,26.20],[-79.92,26.09],[-80.10,26.00],[-80.30,25.90],[-80.79,25.65],[-81.30,25.40],[-81.68,25.23],[-82.00,25.10],[-82.30,25.00],[-82.60,24.90],[-82.94,24.75],[-83.30,24.60],[-83.65,24.48],[-84.00,24.40],[-84.36,24.38],[-84.70,24.40],[-85.01,24.43],[-85.30,24.50],[-85.59,24.63],[-85.90,24.80],[-86.27,24.98],[-86.70,25.20],[-87.19,25.44],[-87.70,25.70],[-88.18,25.97],[-88.60,26.30],[-88.94,26.72],[-89.20,27.20],[-89.45,27.67],[-89.60,28.20],[-89.62,28.81],[-89.60,29.30],[-89.60,29.50],[-89.60,30.20],[-89.60,30.27],[-89.60,31.10],[-89.40,31.87],[-89.10,32.60],[-88.86,33.35],[-88.60,34.10],[-88.34,34.86],[-88.00,35.60],[-87.58,36.29],[-87.00,37.00],[-86.25,37.79],[-85.30,38.60],[-84.16,39.37],[-82.90,40.10, 'August 31']
+                    ]
                 }],
-                data: {
-                    csvURL: 'https://raw.githubusercontent.com/awalmer/Climate-Data-Repository/main/Hurricanes/katrina_path.csv',
-                    beforeParse: function (csv) {
-                        return csv.replace('[', /\n\n/g, '],\n'); // attempts to try reformatting csv
-                    }
-                }
+                // Revisit to this script, commented out old:
+                //data: {
+                //    csvURL: 'https://raw.githubusercontent.com/awalmer/Climate-Data-Repository/main/Hurricanes/katrina_path.csv',
+                //    beforeParse: function (csv) {
+                //        return csv.replace('[', /\n\n/g, '],\n'); // attempts to try reformatting csv
+                //    }
+                //}
             });
 
             // Play chart button
@@ -1272,7 +1276,7 @@
                 }
             }],
             caption: {
-                text: '<b>Data Source: International Best Track Archive for Climate Stewardship (IBTrACS)</b><br><a href="https://ibtracs.unca.edu/index.php?name=v04r00-2005236N23285" target="_blank"><em>2005 Major Hurricane KATRINA (2005236N23285)</em></a>',
+                text: '<b>Data Source: International Best Track Archive for Climate Stewardship (IBTrACS)</b><br><a href="https://ibtracs.unca.edu/index.php?name=v04r00-2005236N23285" target="_blank"><em>2005 Major Hurricane KATRINA (2005236N23285)</em></a><br>Data scraped in R using rvest library',
                 align: 'center'
             },
             series: [{
