@@ -795,3 +795,11 @@ textarea.form-control {
   background-color: #25386f;
   color: #fff;
 }
+
+.highcharts-figure {
+  max-width: 100%;
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 10px;
+  position: relative;
+}
