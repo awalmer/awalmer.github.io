@@ -125,6 +125,12 @@
             <div id="highcharts_container8"></div>
         </div>
 
+        <br><br>
+        <div class="container">
+            <button class="btn btn-test btn-small" id="sonify9">Play chart</button>
+            <div id="highcharts_container9"></div>
+        </div>
+
     </section>
 
     <!-- Load Highcharts Javascript -->
@@ -1306,6 +1312,103 @@
         
     </script>
 
+    <script>
+        const chart9 = Highcharts.chart('highcharts_container9', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Hurricane Frequency (All U.S. Regions) 2013-2022',
+                align: 'left'
+            },
+            subtitle: {
+                text:
+                    'Source: <a target="_blank" ' +
+                    'href="https://www.ncdc.noaa.gov/stormevents/choosedates.jsp?statefips=-999%2CALL">NOAA Storm Events Database</a>',
+                align: 'left'
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                crosshair: true,
+                accessibility: {
+                    description: 'Month'
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Hurricane Frequency'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' Hurricanes'
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            sonification: {
+                duration: 6000,
+                updateInterval: 0
+                // order: 'simultaneous'
+            },
+            series: [
+                {
+                    name: '2013',
+                    data: [0,0,0,0,0,0,0,0,0,1,1,0],
+                    sonification: {
+                        tracks: [{
+                            instrument: 'vibraphone'
+                        }]
+                    }
+                },
+                {
+                    name: '2014',
+                    data: [0,0,0,0,0,0,3,0,0,2,0,1]
+                },
+                {
+                    name: '2015',
+                    data: [0,0,1,1,4,0,0,1,0,0,0,0]
+                },
+                {
+                    name: '2016',
+                    data: [0,0,0,2,0,0,0,0,8,23,0,0]
+                },
+                {
+                    name: '2017',
+                    data: [0,0,0,0,0,0,0,9,35,1,0,0]
+                },
+                {
+                    name: '2018',
+                    data: [0,0,0,0,0,0,0,12,12,43,0,0]
+                },
+                {
+                    name: '2019',
+                    data: [0,0,0,0,0,0,2,1,7,0,0,0]
+                },
+                {
+                    name: '2020',
+                    data: [0,0,0,0,0,0,6,23,8,26,0,0]
+                },
+                {
+                    name: '2021',
+                    data: [0,0,0,1,0,0,0,37,1,0,0,0]
+                },
+                {
+                    name: '2022',
+                    data: [0,0,0,0,0,0,0,0,15,0,8,0]
+                },
+            ]
+        });
+
+        // Click button to sonify or stop
+        document.getElementById('sonify9').onclick = function () {
+            chart9.toggleSonify();
+        };
+
+    </script>
 
 
 

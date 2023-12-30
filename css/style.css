@@ -216,7 +216,8 @@ ul.dropdown-menu {
   padding: 0px;
 }
 
-ul.dropdown-menu > li > a, .navbar ul ul ul.dropdown-menu li .nav-link {
+ul.dropdown-menu > li > a, .navbar ul ul ul.dropdown-menu 
+.nav-link {
   font-size: 12px;
   line-height: 22px;
   display: block;
