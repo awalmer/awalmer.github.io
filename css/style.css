@@ -216,7 +216,8 @@ ul.dropdown-menu {
   padding: 0px;
 }
 
-ul.dropdown-menu > li > a, .navbar ul ul ul.dropdown-menu li .nav-link {
+ul.dropdown-menu > li > a, .navbar ul ul ul.dropdown-menu 
+.nav-link {
   font-size: 12px;
   line-height: 22px;
   display: block;
@@ -756,3 +757,64 @@ textarea.form-control {
   color: #f44336;
 }
 /*# sourceMappingURL=style.css.map */
+
+/* Testing out defining a single attribute so that I can add it to body of a page!*/
+.test-bg {
+  background-image: url(../images/test/whoi_bg.jpg);
+}
+
+.test-width {
+  width: 100%;
+}
+
+.btn-test {
+  background: #0567AD;
+  color: #fff;
+}
+
+.sonify-btn {
+  position: relative;
+  top: 5px;
+  right: 5px;
+  z-index: 10;
+  background-color: #fff;
+  border: 1px solid #25386f;
+  color: #25386f;
+  font-size: 0.9rem;
+  min-height: 30px;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 0.375rem 0;
+  width: 10rem;
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.sonify-btn:hover {
+  background-color: #25386f;
+  color: #fff;
+}
+
+.highcharts-figure {
+  max-width: 100%;
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 10px;
+  position: relative;
+}
+
+.margin-20 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 15px;
+  position: relative;
+  color: #494949;
+}
+
+.blue-link {
+  color: #074c76;
+  font-weight: bold;
+}
