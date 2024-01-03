@@ -804,3 +804,17 @@ textarea.form-control {
   padding: 10px;
   position: relative;
 }
+
+.margin-20 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 15px;
+  position: relative;
+  color: #494949;
+}
+
+.blue-link {
+  color: #074c76;
+  font-weight: bold;
+}
