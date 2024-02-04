@@ -97,7 +97,7 @@ h6, .h6 {
 }
 
 .btn-main {
-  background: #f44336;
+  background: #e0634a;
   color: #fff;
 }
 .btn-main:hover {
@@ -110,7 +110,7 @@ h6, .h6 {
   color: #fff;
 }
 .btn-black:hover {
-  background: #f44336;
+  background: #e0634a;
   color: #fff;
 }
 
@@ -129,13 +129,13 @@ a {
   transition: all 0.25s ease;
 }
 a:hover {
-  color: #f44336;
+  color: #e0634a;
   text-decoration: none;
   outline: none;
 }
 
 .bg-primary {
-  background: #f44336 !important;
+  background: #e0634a !important;
 }
 
 .bg-secondary {
@@ -147,7 +147,7 @@ a:hover {
 }
 
 .text-color {
-  color: #f44336;
+  color: #e0634a;
 }
 
 .text-color-2 {
@@ -166,7 +166,7 @@ a:hover {
   width: 40px;
   height: 2px;
   margin-left: -25px;
-  background: #f44336;
+  background: #e0634a;
 }
 
 @media (max-width: 575px) {
@@ -232,7 +232,7 @@ ul.dropdown-menu > li > a, .navbar ul ul ul.dropdown-menu
   text-transform: uppercase;
 }
 ul.dropdown-menu > li > a:hover, .navbar ul ul ul.dropdown-menu li .nav-link:hover {
-  color: #f44336;
+  color: #e0634a;
 }
 
 .dropdown-item:focus, .dropdown-item:hover {
@@ -357,14 +357,14 @@ ul.dropdown-menu > li > a:hover, .navbar ul ul ul.dropdown-menu li .nav-link:hov
   font-weight: 700;
 }
 .portfolio .btn-group .btn:hover {
-  color: #f44336;
+  color: #e0634a;
 }
 .portfolio .btn-group:not(:first-child) > .btn, .portfolio .btn-group > .btn:not(:first-child) {
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
 }
 .portfolio .btn.active {
-  color: #f44336;
+  color: #e0634a;
 }
 
 .inner-box {
@@ -588,7 +588,7 @@ ul.dropdown-menu > li > a:hover, .navbar ul ul ul.dropdown-menu li .nav-link:hov
 }
 .form-control:focus {
   box-shadow: none;
-  border-color: #f44336;
+  border-color: #e0634a;
 }
 
 textarea.form-control {
@@ -637,7 +637,7 @@ textarea.form-control {
   transition: all 0.35s ease;
 }
 .post .post-content a:hover h4 {
-  color: #f44336;
+  color: #e0634a;
 }
 
 .pagination {
@@ -653,11 +653,11 @@ textarea.form-control {
   transition: 0.3s;
 }
 .pagination li a:hover {
-  background: #f44336;
+  background: #e0634a;
   color: #fff;
 }
 .pagination li.active a {
-  background: #f44336;
+  background: #e0634a;
   color: #fff;
 }
 
@@ -746,7 +746,7 @@ textarea.form-control {
 }
 .footer {
   padding: 60px 0px;
-  background: #000;
+  background: #6fb7a8;
 }
 
 .footer-widget a {
@@ -754,7 +754,7 @@ textarea.form-control {
   text-transform: capitalize;
 }
 .footer-widget a:hover {
-  color: #f44336;
+  color: #e0634a;
 }
 /*# sourceMappingURL=style.css.map */
 
