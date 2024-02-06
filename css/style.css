@@ -746,7 +746,7 @@ textarea.form-control {
 }
 .footer {
   padding: 60px 0px;
-  background: #6fb7a8;
+  background: #83ccc0;
 }
 
 .footer-widget a {
@@ -816,5 +816,15 @@ textarea.form-control {
 
 .blue-link {
   color: #074c76;
+  font-weight: bold;
+}
+
+.btn-purple {
+  background: #2f1962;
+  color: #fff;
+}
+
+.purple-link {
+  color: #4a1a89;
   font-weight: bold;
 }
