@@ -828,3 +828,9 @@ textarea.form-control {
   color: #4a1a89;
   font-weight: bold;
 }
+
+.centered-stuff {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
