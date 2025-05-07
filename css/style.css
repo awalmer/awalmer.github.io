@@ -27,6 +27,9 @@ body {
   letter-spacing: 0.166667px;
   line-height: 1.7em;
   color: #818385;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 p {
@@ -747,6 +750,8 @@ textarea.form-control {
 .footer {
   padding: 60px 0px;
   background: #83ccc0;
+  margin-top: auto;
+  max-height: 100px;
 }
 
 .footer-widget a {
